@@ -33,11 +33,5 @@ public class SaveFile {
         {
             System.out.println(e.getMessage());
         }
-
-    }
-
-    public static void main(String[] args) {
-        SaveFile saveFile = new SaveFile("test.txt");
-        saveFile.save("This is my file2");
     }
 }
