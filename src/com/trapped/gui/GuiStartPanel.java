@@ -1,15 +1,14 @@
-package com.trapped.gui.controller;
+package com.trapped.gui;
 
 import javax.swing.JButton;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class GuiStartPanel extends GuiBackgroundImageLabelPanel {
-    public GuiStartPanel(Gui gui) {
+public class GuiStartPanel extends BackgroundImageLabelPanel {
+    public GuiStartPanel(MainWindow gui) {
         super(gui);
 
         //start panel design
@@ -55,7 +54,7 @@ public class GuiStartPanel extends GuiBackgroundImageLabelPanel {
         JButton startButton = new JButton(" START ");
 
         startButton.setSize(dimension);
-        startButton.setFont(Gui.btnFont);
+        startButton.setFont(MainWindow.btnFont);
         startButton.setOpaque(false);
         startButton.setForeground(Color.BLACK);
         startButton.setBackground(Color.GRAY);
@@ -69,7 +68,7 @@ public class GuiStartPanel extends GuiBackgroundImageLabelPanel {
     private JButton createExitButton(Dimension dimension) {
         JButton exitButton = new JButton(" EXIT ");
         exitButton.setSize(dimension);
-        exitButton.setFont(Gui.btnFont);
+        exitButton.setFont(MainWindow.btnFont);
         exitButton.setOpaque(false);
         exitButton.setForeground(Color.BLACK);
         exitButton.setBackground(Color.GRAY);
@@ -86,7 +85,7 @@ public class GuiStartPanel extends GuiBackgroundImageLabelPanel {
         @Override
         public void actionPerformed(ActionEvent e) {
             //Create Game Screen
-            getGui().createGameScreen();
+            getMainWindow().createGameScreen();
         }
     }
 
@@ -96,7 +95,7 @@ public class GuiStartPanel extends GuiBackgroundImageLabelPanel {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            JOptionPane.showMessageDialog(GuiStartPanel.this.getGui(), "Good Bye!");
+            //JOptionPane.showMessageDialog(GuiStartPanel.this.getGui(), "Good Bye!");
             System.exit(0);
         }
     }
