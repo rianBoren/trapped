@@ -43,7 +43,7 @@ public class ExitPanel extends GuiPanel {
         this.add(btnPanel);
     }
 
-    private JPanel createButtonPanel() {
+    public static JPanel createButtonPanel() {
         //Restart panel design
         JPanel restartPanel = createRestartPanel();
         //exit panel design
@@ -56,7 +56,8 @@ public class ExitPanel extends GuiPanel {
         return btnPanel;
     }
 
-    private JPanel createExitPanel() {
+
+    private static JPanel createExitPanel() {
         JPanel exitPanel = new JPanel();
         exitPanel.setBounds(400, 400, 200, 300);
         exitPanel.setOpaque(false); //content pane opaque is false, has no effect
@@ -69,7 +70,8 @@ public class ExitPanel extends GuiPanel {
         return exitPanel;
     }
 
-    private JButton createExitPanel(Dimension dimension) {
+
+    static JButton createExitPanel(Dimension dimension) {
         JButton exitButton = new JButton(" EXIT ");
 
         exitButton.setSize(dimension);
@@ -88,7 +90,7 @@ public class ExitPanel extends GuiPanel {
         return exitButton;
     }
 
-    private JPanel createRestartPanel() {
+    private static JPanel createRestartPanel() {
         JPanel restartPanel = new JPanel();
         restartPanel.setBounds(400, 400, 200, 300);
         restartPanel.setOpaque(false); //content pane opaque is false, has no effect
@@ -101,7 +103,7 @@ public class ExitPanel extends GuiPanel {
         return restartPanel;
     }
 
-    private JButton createRestartPanel(Dimension dimension) {
+    static JButton createRestartPanel(Dimension dimension) {
         JButton restartButton = new JButton(" RESTART ");
 
         restartButton.setSize(dimension);
@@ -110,12 +112,33 @@ public class ExitPanel extends GuiPanel {
         restartButton.setForeground(Color.BLACK);
         restartButton.setBackground(Color.RED);
 
+        //adding event listener
         restartButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                //RE-START Game Screen
                 getMainWindow().restartGame();
             }
         });
         return restartButton;
+    }
+
+    private JButton createExitPanel(Dimension dimension) {
+        JButton exitButton = new JButton(" EXIT ");
+        exitButton.setSize(dimension);
+        exitButton.setFont(MainWindow.btnFont);
+        exitButton.setOpaque(false);
+        exitButton.setForeground(Color.BLACK);
+        exitButton.setBackground(Color.CYAN);
+
+        //adding exit event listener
+        exitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(mainWindow, "Thank you for playing!!! Good BYe!!!");
+                System.exit(0);
+            }
+        });
+        return exitButton;
     }
 }

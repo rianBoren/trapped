@@ -450,13 +450,24 @@ public class GamePanel extends GuiPanel {
         gameOver.setBounds(layeredPane.getBounds());
         gameOver.setBackground(Color.black);
 
-        JLabel gameOverImage = GuiUtil.getImageLabel(file, 1200, 450);
+        JLabel gameOverImage = GuiUtil.getImageLabel(file, 700, 450);
         gameOverImage.setText(reason);
         gameOverImage.setForeground(Color.white);
         gameOverImage.setIconTextGap(30);
         gameOverImage.setFont(new Font("Helvetica", Font.BOLD, 35));
         gameOverImage.setVerticalTextPosition(JLabel.BOTTOM);
         gameOverImage.setHorizontalTextPosition(JLabel.CENTER);
+
+        JButton restart = ExitPanel.createRestartPanel(new Dimension(200, 200));
+        JButton exit = ExitPanel.createExitPanel(new Dimension(200, 200));
+        restart.setForeground(Color.white);
+        exit.setForeground(Color.white);
+        gameOver.add(new JLabel(" "));
+
+        gameOver.add(restart);
+        gameOver.add(exit);
+
+//        gameOver.setLayout(new BoxLayout(gameOver, BoxLayout.Y_AXIS));
 
         gameOver.add(gameOverImage);
         layeredPane.removeAll();

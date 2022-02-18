@@ -73,22 +73,23 @@ public class GuiIntroPanel extends GuiPanel {
 
     /**
      * Creates main display text area.
+     *
      * @return
      */
     public JScrollPane getDisplayScrollPane() {
-        JScrollPane displayTextAreaScroll = null;
-//        if (displayTextArea == null) {
-            displayTextArea = new JTextArea(MAIN_PANEL_TEXT_AREA_ROWS, MAIN_PANEL_TEXT_AREA_COLS);
-            displayTextArea.setEditable(false);
-            displayTextArea.setFont(new Font("Monospaced", Font.ITALIC, 18));
-            displayTextArea.setBackground(Color.black);
-            displayTextArea.setForeground(Color.white);
-            displayTextArea.setLineWrap(true);
-            displayTextArea.setWrapStyleWord(true);
+        JScrollPane displayTextAreaScroll;
+        displayTextArea = new JTextArea(MAIN_PANEL_TEXT_AREA_ROWS, MAIN_PANEL_TEXT_AREA_COLS);
+        displayTextArea.setEditable(false);
+//            //displayTextArea.setFont(MainWindow.DISPLAY_AREA_FONT);
+        displayTextArea.setFont(new Font("Monospaced", Font.ITALIC, 18));
+        displayTextArea.setBackground(Color.black);
+        displayTextArea.setForeground(Color.white);
+        displayTextArea.setLineWrap(true);
+        displayTextArea.setWrapStyleWord(true);
 
-            //Add scrollbar
-            displayTextAreaScroll = GuiUtil.createScrollPane(displayTextArea);
-//        }
+        //Add scrollbar
+        displayTextAreaScroll = GuiUtil.createScrollPane(displayTextArea);
+
         return displayTextAreaScroll;
     }
 
