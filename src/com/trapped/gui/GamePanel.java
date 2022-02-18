@@ -7,7 +7,6 @@ import com.trapped.utilities.Audio;
 import com.trapped.utilities.Puzzle;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -93,7 +92,7 @@ public class GamePanel extends GuiPanel {
         timer.setBounds(200, 0, 200, 200);
         timer.setForeground(Color.black);
         timer.setVisible(true);
-        startTimer(10);
+        startTimer(400);
         buttonsPanel.add(timer);
     }
 
