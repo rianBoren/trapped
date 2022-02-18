@@ -49,7 +49,7 @@ public class MainWindow extends JFrame {
         GuiStartPanel guiStartPanel = new GuiStartPanel(this);
         setMainPanel(guiStartPanel);
 
-        ImageIcon image = new ImageIcon("resources/images/trapped-image.jpg");
+        ImageIcon image = new ImageIcon("resources/images/trapped-image.png");
         this.setIconImage(image.getImage());
 
         //make frame visible
