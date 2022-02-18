@@ -21,7 +21,7 @@ import java.util.Arrays;
 public class GuiIntroPanel extends GuiPanel {
 
     //Rows and cols of text area to match the size of the map
-    private static final int MAIN_PANEL_TEXT_AREA_ROWS = 90;
+    private static final int MAIN_PANEL_TEXT_AREA_ROWS = 20;
     private static final int MAIN_PANEL_TEXT_AREA_COLS = 90;
     private static JTextArea displayTextArea;
     private JButton continueButton;
@@ -77,10 +77,9 @@ public class GuiIntroPanel extends GuiPanel {
      */
     public JScrollPane getDisplayScrollPane() {
         JScrollPane displayTextAreaScroll = null;
-        if (displayTextArea == null) {
+//        if (displayTextArea == null) {
             displayTextArea = new JTextArea(MAIN_PANEL_TEXT_AREA_ROWS, MAIN_PANEL_TEXT_AREA_COLS);
             displayTextArea.setEditable(false);
-//            //displayTextArea.setFont(MainWindow.DISPLAY_AREA_FONT);
             displayTextArea.setFont(new Font("Monospaced", Font.ITALIC, 18));
             displayTextArea.setBackground(Color.black);
             displayTextArea.setForeground(Color.white);
@@ -89,7 +88,7 @@ public class GuiIntroPanel extends GuiPanel {
 
             //Add scrollbar
             displayTextAreaScroll = GuiUtil.createScrollPane(displayTextArea);
-        }
+//        }
         return displayTextAreaScroll;
     }
 
