@@ -13,6 +13,7 @@ import javax.swing.JTextArea;
 import javax.swing.Timer;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
@@ -79,9 +80,10 @@ public class GuiIntroPanel extends GuiPanel {
         if (displayTextArea == null) {
             displayTextArea = new JTextArea(MAIN_PANEL_TEXT_AREA_ROWS, MAIN_PANEL_TEXT_AREA_COLS);
             displayTextArea.setEditable(false);
-            displayTextArea.setFont(MainWindow.DISPLAY_AREA_FONT);
-            displayTextArea.setBackground(Color.CYAN);
-            displayTextArea.setForeground(Color.BLACK);
+//            //displayTextArea.setFont(MainWindow.DISPLAY_AREA_FONT);
+            displayTextArea.setFont(new Font("Monospaced", Font.ITALIC, 18));
+            displayTextArea.setBackground(Color.black);
+            displayTextArea.setForeground(Color.white);
             displayTextArea.setLineWrap(true);
             displayTextArea.setWrapStyleWord(true);
 
