@@ -13,22 +13,32 @@ class KeypadPanel extends GuiPanel{
     //
     private String currentDigits = "";
     private int attemptsLeft = 3;
-    private JPanel keypadPanel = this;
     private JLabel display;
+    public static final Font BTN_FONT = new Font("SansSerif", Font.BOLD, 10); // ORIGINAL
     //
     private static final int BOX_WIDTH = 360;
     private static final int BOX_HEIGHT = 400;
-    private static final int KP_WIDTH = 360;
-    private static final int KP_HEIGHT = 330;
-    private static final int DISPLAY_HEIGHT = 70;
+    private static final int KP_WIDTH = 340;
+    private static final int KP_HEIGHT = 380;
+    private static final int BTNS_HEIGHT = 320;
+    private static final int DISPLAY_HEIGHT = 60;
 
     public KeypadPanel(MainWindow mainWindow){
         super(mainWindow);
-        keypadPanel.setBackground(Color.darkGray);
-        keypadPanel.setBounds(400, 0, BOX_WIDTH, BOX_HEIGHT);
+
+        this.setBackground(new Color(125,115,115));
+        this.setBounds(400, 0, BOX_WIDTH, BOX_HEIGHT);
+        this.setLayout(null);
+//        this.add(basePanel);
+
+        JPanel keypadPanel = new JPanel();
+        keypadPanel.setBackground(new Color(0,26,77));
+        keypadPanel.setBounds(10, 10, KP_WIDTH, KP_HEIGHT);
         keypadPanel.setLayout(null);
         keypadPanel.add(createDisplayPanel());
         keypadPanel.add(createKeypadPanel());
+
+        this.add(keypadPanel);
     }
 
     private JPanel createDisplayPanel(){
@@ -52,7 +62,7 @@ class KeypadPanel extends GuiPanel{
         JPanel keypad = new JPanel();
         keypad.setBackground(new Color(160, 160, 160));
         keypad.setLayout(new GridLayout(4,3, 10, 10));
-        keypad.setBounds(0, DISPLAY_HEIGHT, KP_WIDTH, KP_HEIGHT);
+        keypad.setBounds(0, DISPLAY_HEIGHT, KP_WIDTH, BTNS_HEIGHT);
 
         // Make buttons
         JButton one_btn = new JButton("1");
@@ -65,6 +75,17 @@ class KeypadPanel extends GuiPanel{
         JButton eight_btn = new JButton("8");
         JButton nine_btn = new JButton("9");
         JButton zero_btn = new JButton("0");
+        // btn font
+        one_btn.setFont(BTN_FONT);
+        two_btn.setFont(BTN_FONT);
+        three_btn.setFont(BTN_FONT);
+        four_btn.setFont(BTN_FONT);
+        five_btn.setFont(BTN_FONT);
+        six_btn.setFont(BTN_FONT);
+        seven_btn.setFont(BTN_FONT);
+        eight_btn.setFont(BTN_FONT);
+        nine_btn.setFont(BTN_FONT);
+        zero_btn.setFont(BTN_FONT);
         // Add action listeners
         one_btn.addActionListener(new KeypadListener("1"));
         two_btn.addActionListener(new KeypadListener("2"));

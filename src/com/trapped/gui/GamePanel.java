@@ -18,6 +18,9 @@ import java.util.TimerTask;
 public class GamePanel extends GuiPanel {
 
     public static final Font BUTTON_FONT = new Font("Arial", Font.BOLD, 20); // ORIGINAL
+    private static final Color BTN_CLR = new Color(145,66,13);
+    private static final Color BTN_FONT_CLR = new Color(255,242,209);
+    private static final Color PANELING_CLR = new Color(78, 72, 68);
 
     private static final int IMAGE_WIDTH = 800;
     private static final int IMAGE_HEIGHT = 400;
@@ -115,13 +118,17 @@ public class GamePanel extends GuiPanel {
     }
 
     private void createTextPanel() {
+        Color txtPanelClr = new Color(55,51,49);
+
         textPanel = new JPanel();
         textPanel.setBounds(0, 0, 400, 400);
-        textPanel.setBackground(Color.WHITE);
+        textPanel.setBackground(txtPanelClr);
 
         textArea = new JTextArea();
         textArea.setBounds(textPanel.getBounds());
         textArea.setFont(MainWindow.DISPLAY_AREA_FONT);
+        textArea.setBackground(txtPanelClr);
+        textArea.setForeground(Color.white);
         textArea.setEditable(false);
         textArea.setLineWrap(true);
         textArea.setWrapStyleWord(true);
@@ -151,39 +158,52 @@ public class GamePanel extends GuiPanel {
     private void createButtonsPanel() {
         buttonsPanel = new JPanel();
         buttonsPanel.setBounds(0, 400, 400, 400);
+        buttonsPanel.setBackground(PANELING_CLR);
 
         leftB = new JButton("Left");
         leftB.setFont(BUTTON_FONT);
+        leftB.setBackground(BTN_CLR);
+        leftB.setForeground(BTN_FONT_CLR);
         rightB = new JButton("Right");
         rightB.setFont(BUTTON_FONT);
+        rightB.setBackground(BTN_CLR);
+        rightB.setForeground(BTN_FONT_CLR);
 
-        JButton inspectB = new JButton("Inspect Room");
+        JButton inspectB = new JButton("Inspect");
         inspectB.setFont(BUTTON_FONT);
+        inspectB.setBackground(BTN_CLR);
+        inspectB.setForeground(BTN_FONT_CLR);
 
-        JButton helpB = new JButton("Help");
-        helpB.setFont(BUTTON_FONT);
+//        JButton helpB = new JButton("Help");
+//        helpB.setFont(BUTTON_FONT);
 
         JButton quitB = new JButton("Quit");
         quitB.setFont(BUTTON_FONT);
+        quitB.setBackground(BTN_CLR);
+        quitB.setForeground(BTN_FONT_CLR);
 
         JPanel p1 = new JPanel();
         p1.setLayout(new BoxLayout(p1, BoxLayout.X_AXIS));
         p1.add(leftB);
         p1.add(new JLabel("     "));
         p1.add(rightB);
+        p1.setBackground(PANELING_CLR);
 
         JPanel p2 = new JPanel();
         p2.setLayout(new BoxLayout(p2, BoxLayout.X_AXIS));
         p2.add(inspectB);
-        p2.add(new JLabel("     "));
-        p2.add(helpB);
+        p2.setBackground(PANELING_CLR);
+//        p2.add(new JLabel("     "));
+//        p2.add(helpB);
 
         JPanel p3 = new JPanel();
         p3.setLayout(new BoxLayout(p3, BoxLayout.X_AXIS));
         p3.add(quitB);
+        p3.setBackground(PANELING_CLR);
 
         JPanel panelY = new JPanel();
         panelY.setLayout(new BoxLayout(panelY, BoxLayout.Y_AXIS));
+        panelY.setBackground(PANELING_CLR);
 
         //add space at the top of buttons
         panelY.add(new JLabel(" "));
@@ -201,7 +221,11 @@ public class GamePanel extends GuiPanel {
         panelY.add(p3);
         panelY.add(new JLabel(" "));
 
-        panelY.add(new VolumeSliderPanel(mainWindow, Audio.DEFAULT_VOLUME_LEVEL));
+        VolumeSliderPanel volumeSliderPanel = new VolumeSliderPanel(mainWindow, Audio.DEFAULT_VOLUME_LEVEL);
+        volumeSliderPanel.setBackground(PANELING_CLR);
+        volumeSliderPanel.setForeground(BTN_FONT_CLR);
+        volumeSliderPanel.setFont(BUTTON_FONT);
+        panelY.add(volumeSliderPanel);
 
 
         //Set bounds (x, y, width, height) of the panelY same as that of the buttonsPanel
@@ -241,12 +265,12 @@ public class GamePanel extends GuiPanel {
             }
         });
 
-        helpB.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //pending
-            }
-        });
+//        helpB.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                //pending
+//            }
+//        });
         quitB.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -271,10 +295,18 @@ public class GamePanel extends GuiPanel {
         instructionsPanel = new GuiPanel(mainWindow);
         instructionsPanel.setBackground(Color.darkGray);
         instructionsPanel.setBounds(760, 0, 440, 400);
+        instructionsPanel.setLayout(new BorderLayout());
 
         // create and add instructions label
-        JLabel instructions = new JLabel("Here's how the keypad works...\n\nMORE TO COME SOON...\n:)");
-        instructionsPanel.add(instructions);
+        JTextArea instructions = new JTextArea("There's no going back from here\n" +
+                "Once you input a digit \nit's PERMANENT\n\nOnly 3 attempts to escape\n" +
+                "Input three digits if you dare\n\n***You notice some strange \nscrawling below the instructions \nthat you can't quite make out***");
+        instructions.setPreferredSize(new Dimension(440,370));
+        instructions.setBackground(Color.black);
+        instructions.setFont(new Font("Monospaced", Font.PLAIN, 20));
+        instructions.setForeground(new Color(247,253,255));
+
+        instructionsPanel.add(instructions, BorderLayout.NORTH);
 
         // exit btn, hides the Keypad and Instructions
         // activates left & right btns
