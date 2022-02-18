@@ -43,7 +43,7 @@ public class ExitPanel extends GuiPanel {
         this.add(btnPanel);
     }
 
-    private JPanel createButtonPanel() {
+    public static JPanel createButtonPanel() {
         //Restart panel design
         JPanel restartPanel = createRestartPanel();
         //exit panel design
@@ -56,7 +56,7 @@ public class ExitPanel extends GuiPanel {
         return btnPanel;
     }
 
-    private JPanel createExitPanel() {
+    private static JPanel createExitPanel() {
         JPanel exitPanel = new JPanel();
         exitPanel.setBounds(400, 400, 200, 300);
         exitPanel.setOpaque(false); //content pane opaque is false, has no effect
@@ -69,7 +69,7 @@ public class ExitPanel extends GuiPanel {
         return exitPanel;
     }
 
-    private JButton createExitPanel(Dimension dimension) {
+    static JButton createExitPanel(Dimension dimension) {
         JButton exitButton = new JButton(" EXIT ");
 
         exitButton.setSize(dimension);
@@ -88,7 +88,7 @@ public class ExitPanel extends GuiPanel {
         return exitButton;
     }
 
-    private JPanel createRestartPanel() {
+    private static JPanel createRestartPanel() {
         JPanel restartPanel = new JPanel();
         restartPanel.setBounds(400, 400, 200, 300);
         restartPanel.setOpaque(false); //content pane opaque is false, has no effect
@@ -101,7 +101,7 @@ public class ExitPanel extends GuiPanel {
         return restartPanel;
     }
 
-    private JButton createRestartPanel(Dimension dimension) {
+    static JButton createRestartPanel(Dimension dimension) {
         JButton restartButton = new JButton(" RESTART ");
 
         restartButton.setSize(dimension);

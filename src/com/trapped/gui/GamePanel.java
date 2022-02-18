@@ -7,7 +7,6 @@ import com.trapped.utilities.Audio;
 import com.trapped.utilities.Puzzle;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -93,7 +92,7 @@ public class GamePanel extends GuiPanel {
         timer.setBounds(200, 0, 200, 200);
         timer.setForeground(Color.black);
         timer.setVisible(true);
-        startTimer(10);
+        startTimer(3);
         buttonsPanel.add(timer);
     }
 
@@ -451,13 +450,24 @@ public class GamePanel extends GuiPanel {
         gameOver.setBounds(layeredPane.getBounds());
         gameOver.setBackground(Color.black);
 
-        JLabel gameOverImage = GuiUtil.getImageLabel(file, 1200, 450);
+        JLabel gameOverImage = GuiUtil.getImageLabel(file, 700, 450);
         gameOverImage.setText(reason);
         gameOverImage.setForeground(Color.white);
         gameOverImage.setIconTextGap(30);
         gameOverImage.setFont(new Font("Helvetica", Font.BOLD, 35));
         gameOverImage.setVerticalTextPosition(JLabel.BOTTOM);
         gameOverImage.setHorizontalTextPosition(JLabel.CENTER);
+
+        JButton restart = ExitPanel.createRestartPanel(new Dimension(200, 200));
+        JButton exit = ExitPanel.createExitPanel(new Dimension(200, 200));
+        restart.setForeground(Color.white);
+        exit.setForeground(Color.white);
+        gameOver.add(new JLabel(" "));
+
+        gameOver.add(restart);
+        gameOver.add(exit);
+
+//        gameOver.setLayout(new BoxLayout(gameOver, BoxLayout.Y_AXIS));
 
         gameOver.add(gameOverImage);
         layeredPane.removeAll();
