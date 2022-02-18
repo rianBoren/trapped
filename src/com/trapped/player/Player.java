@@ -133,7 +133,11 @@ public class Player implements Serializable {
         location = loc;
         puzzle.generatePuzzle(loc);
 
-        puzzle.checkRiddle(inventory.invList, loc);
+        if ("Y".equals(puzzle.getPuzzleExist())) {
+            if ("riddles".equals(puzzle.getPuzzleType())) {
+                puzzle.checkRiddle(inventory.invList, loc);
+            }
+        }
     }
 
     public Map<String, String> solveUseTool(String item) {
