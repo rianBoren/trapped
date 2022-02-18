@@ -1,6 +1,5 @@
 package com.trapped.gui;
 
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -8,8 +7,6 @@ import javax.swing.JPanel;
 import java.awt.Component;
 import java.awt.GridBagLayout;
 import java.awt.Image;
-import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 
 public class BackgroundImageLabelPanel extends GuiPanel {
@@ -35,15 +32,6 @@ public class BackgroundImageLabelPanel extends GuiPanel {
         URL imageURL = BackgroundImageLabelPanel.class.getResource("/image/image.jpg");
         ImageIcon backgroundImage = new ImageIcon(new ImageIcon(imageURL).getImage()
                 .getScaledInstance(backgroundImageLabel.getWidth(), backgroundImageLabel.getHeight(), Image.SCALE_SMOOTH));
-        backgroundImageLabel.setIcon(backgroundImage);
-//        System.out.println("LOC1** " + backgroundImage);
-        //set to scaled image
-//        ImageIcon backgroundImage = null;
-//        try{
-//            backgroundImage = new ImageIcon(ImageIO.read(new File("/images/image.jpg")));
-//        } catch (IOException e){
-//            e.printStackTrace();
-//        }
         backgroundImageLabel.setIcon(backgroundImage);
         backgroundPanel.add(backgroundImageLabel);
         return backgroundPanel;
