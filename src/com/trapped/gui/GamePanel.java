@@ -7,6 +7,7 @@ import com.trapped.utilities.Audio;
 import com.trapped.utilities.Puzzle;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -89,7 +90,7 @@ public class GamePanel extends GuiPanel {
         timer.setBounds(200, 0, 200, 200);
         timer.setForeground(Color.black);
         timer.setVisible(true);
-        startTimer(480);
+        startTimer(10);
         buttonsPanel.add(timer);
     }
 
@@ -109,6 +110,7 @@ public class GamePanel extends GuiPanel {
                 if (countdown < 0) {
                     count.cancel();
                     timer.setText("TIME OVER");
+                    createGameOverScreen("You ran out of time! Now you're dead.", "/image/gameover.png");
                 }
             }
         }, 0, 1000);
@@ -420,5 +422,24 @@ public class GamePanel extends GuiPanel {
         p.add(btn);
         p.add(new JLabel("    "));
         return p;
+    }
+
+    private void createGameOverScreen(String reason, String file) {
+        JPanel gameOver = new JPanel();
+        gameOver.setBounds(layeredPane.getBounds());
+        gameOver.setBackground(Color.black);
+
+        JLabel gameOverImage = GuiUtil.getImageLabel(file, 1200, 450);
+        gameOverImage.setText(reason);
+        gameOverImage.setForeground(Color.white);
+        gameOverImage.setIconTextGap(30);
+        gameOverImage.setFont(new Font("Helvetica", Font.BOLD, 35));
+        gameOverImage.setVerticalTextPosition(JLabel.BOTTOM);
+        gameOverImage.setHorizontalTextPosition(JLabel.CENTER);
+
+        gameOver.add(gameOverImage);
+        layeredPane.removeAll();
+        layeredPane.add(gameOver);
+        layeredPane.moveToFront(gameOver);
     }
 }

@@ -66,7 +66,6 @@ public class GuiUtil {
      */
     public static JLabel getImageLabel(String imagePath, int width, int height) {
         Image img = transformImage(createImageIcon(imagePath, ""), width, height);
-        System.out.println(img);
         ImageIcon icon = new ImageIcon(img); //transform it back
         JLabel imageLabel = new JLabel("", icon, JLabel.CENTER);
         return imageLabel;
@@ -74,7 +73,6 @@ public class GuiUtil {
 
     public static JButton getButtonImage(String imagePath, int width, int height) {
         Image img = transformImage(createImageIcon(imagePath, ""), width, height);
-        System.out.println(img);
         ImageIcon icon = new ImageIcon(img); //transform it back
         JButton imageButton = new JButton();
         imageButton.setIcon(icon);
