@@ -197,6 +197,7 @@ public class Player implements Serializable {
         return puzzle;
     }
 
+
     public static String getLocation() {
         return location;
     }

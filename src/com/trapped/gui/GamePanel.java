@@ -84,12 +84,12 @@ public class GamePanel extends GuiPanel {
     }
 
 
-     public void createCountdownPanel() {
+    public void createCountdownPanel() {
         timer = new JLabel();
-        timer.setBounds(JLabel.CENTER, JLabel.CENTER, 200, 200);
+        timer.setBounds(200, 0, 200, 200);
         timer.setForeground(Color.black);
         timer.setVisible(true);
-        startTimer(3000);
+        startTimer(480);
         buttonsPanel.add(timer);
     }
 
@@ -97,19 +97,19 @@ public class GamePanel extends GuiPanel {
         java.util.Timer count = new Timer();
 
         count.scheduleAtFixedRate(new TimerTask() {
-            int countdown = 30;
+            int countdown = time;
+
             @Override
             public void run() {
-                timer.setText("Time left: " + countdown);
+                int secs = countdown % 60;
+                int min = Math.floorDiv(countdown, 60);
+                timer.setText("Time left: " + min + ":" + (secs < 10 ? "0" + secs : secs));
                 --countdown;
-                System.out.println(countdown);
 
                 if (countdown < 0) {
                     count.cancel();
                     timer.setText("TIME OVER");
                 }
-
-
             }
         }, 0, 1000);
     }
@@ -227,7 +227,7 @@ public class GamePanel extends GuiPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 inspectLocation();
-                if ("door".equals(player.getLocation())){
+                if ("door".equals(player.getLocation())) {
                     // show keypad and instructions
                     keypadPanel.setVisible(true);
                     instructionsPanel.setVisible(true);
@@ -259,14 +259,14 @@ public class GamePanel extends GuiPanel {
     }
 
     // create keypad for door exit
-    private void createKeypadPanel(){
+    private void createKeypadPanel() {
         keypadPanel = new KeypadPanel(mainWindow);
         keypadPanel.setVisible(false);  // hide panel
         layeredPane.add(keypadPanel);
     }
 
     // create instructions to the right of keypad
-    private void createKeypadInstructionsPanel(){
+    private void createKeypadInstructionsPanel() {
         // create and place panel
         instructionsPanel = new GuiPanel(mainWindow);
         instructionsPanel.setBackground(Color.darkGray);
@@ -296,7 +296,6 @@ public class GamePanel extends GuiPanel {
 
     private void inspectLocation() {
         List<String> items = JsonMap.getFurnitureItems(player.getLocation());
-        System.out.println(items);
         if (items.isEmpty()) {
             JOptionPane.showMessageDialog(mainWindow, "No items found at: " + player.getLocation());
             return;

@@ -156,12 +156,11 @@ public class Puzzle{
         }
 
         if(inventory.getInvList().contains(this.getPuzzleRewardItem().get(0))) {
-            System.out.println("The puzzle has been solved. Please feel free to explore other furnitures :)");
+            result.put("error", "The puzzle has been solved. Please feel free to explore other furnitures :)");
         }
-        if (item.equals(getPuzzleItemsNeeded().get(0))) {
-
-            result.put("puzzleDescription", getPuzzleDesc());
-            System.out.println(getPuzzleReward() + " and you've found " + this.getPuzzleRewardItem().get(0));
+        else if (item.equals(getPuzzleItemsNeeded().get(0))) {
+            result.put("puzzleDescription", getPuzzleReward());
+            result.put("prompt", "You've found " + this.getPuzzleRewardItem().get(0));
             inventory.addItem(getPuzzleRewardItem().get(0));
 //            System.out.println("A puzzle has been found in " + loc + ".");
 //            System.out.println(getPuzzleDesc());
