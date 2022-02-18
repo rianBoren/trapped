@@ -43,7 +43,7 @@ public class ExitPanel extends GuiPanel {
         this.add(btnPanel);
     }
 
-    private JPanel createButtonPanel() {
+    public static JPanel createButtonPanel() {
         //Restart panel design
         JPanel restartPanel = createRestartPanel();
         //exit panel design
@@ -56,19 +56,8 @@ public class ExitPanel extends GuiPanel {
         return btnPanel;
     }
 
-    private JPanel createRestartPanel() {
-        JPanel restartPanel = new JPanel();
-        restartPanel.setOpaque(false); //content pane opaque is false, has no effect
 
-        Dimension dimension = new Dimension(400, 300);
-        JButton restartButton = createRestartPanel(dimension);
-        restartPanel.add(restartButton);
-        restartButton.setFocusPainted(false);
-
-        return restartPanel;
-    }
-
-    private JPanel createExitPanel() {
+    private static JPanel createExitPanel() {
         JPanel exitPanel = new JPanel();
         exitPanel.setBounds(400, 400, 200, 300);
         exitPanel.setOpaque(false); //content pane opaque is false, has no effect
@@ -81,7 +70,40 @@ public class ExitPanel extends GuiPanel {
         return exitPanel;
     }
 
-    private JButton createRestartPanel(Dimension dimension) {
+
+    static JButton createExitPanel(Dimension dimension) {
+        JButton exitButton = new JButton(" EXIT ");
+
+        exitButton.setSize(dimension);
+        exitButton.setFont(MainWindow.btnFont);
+        exitButton.setOpaque(false);
+        exitButton.setForeground(Color.BLACK);
+        exitButton.setBackground(Color.RED);
+
+        exitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(mainWindow, "Thank you for playing!!! Good BYe!!!");
+                System.exit(0);
+            }
+        });
+        return exitButton;
+    }
+
+    private static JPanel createRestartPanel() {
+        JPanel restartPanel = new JPanel();
+        restartPanel.setBounds(400, 400, 200, 300);
+        restartPanel.setOpaque(false); //content pane opaque is false, has no effect
+
+        Dimension dimension = new Dimension(400, 300);
+        JButton restartButton = createRestartPanel(dimension);
+        restartPanel.add(restartButton);
+        restartButton.setFocusPainted(false);
+
+        return restartPanel;
+    }
+
+    static JButton createRestartPanel(Dimension dimension) {
         JButton restartButton = new JButton(" RESTART ");
 
         restartButton.setSize(dimension);
