@@ -5,7 +5,6 @@ import com.trapped.utilities.Sounds;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class Inventory {
     private static final Inventory INVENTORY = new Inventory();
@@ -18,48 +17,6 @@ public class Inventory {
 
     public static Inventory getInstance(){
         return INVENTORY;
-    }
-
-    // check current inventory
-    public List<String> checkInv() {
-        System.out.println("Your current inventory: " + invList);
-        return invList;
-    }
-
-    // pickup item method.
-    public void pickUpItem(String location, Map<String, Map<String, Object>> furniturePuzzleMap) {
-        Map<String, Object> furniture;
-        String locationItem;
-
-        if (furniturePuzzleMap.get(location) == null) {
-            System.out.println("Invalid selection, Location is NULL");
-        }
-        else {
-            furniture = furniturePuzzleMap.get(location);
-            locationItem = ((ArrayList<String>) furniture.get("furniture_items")).get(0);
-            // if inventory is full. player needs to drop an item
-            if (locationItem.isEmpty()) {
-                System.out.println(location + " is empty. Nothing can be added.");
-            }
-            //if furniture has an item available to be picked up
-            else if (!invList.contains(locationItem)) {
-                System.out.println("\nDo you want to add " + locationItem + " to your inventory? [Y/N]");
-                String response = Prompts.getStringInput();
-                switch (response){
-                    case "Y":
-                    case "y":
-                        checkInvLimit();
-                        addItem(locationItem);
-                        break;
-                    case "N":
-                    case "n":
-                        System.out.println("You did not pick up anything from " + location);
-                        break;
-                    default:
-                        System.out.println("Sorry, I don't understand your entry. You did not pick anything from " + location);
-                }
-            }
-        }
     }
 
     // Check Inventory size to ensure only 5 items
@@ -85,13 +42,6 @@ public class Inventory {
         return selection;
     }
 
-    // Drop a specific item
-    // Used for input "drop xxx"
-    public String dropSpecificItem(String item) {
-        drop(item);
-        return item;
-    }
-
     // Loop for dropping an item
     // Ensures the item is in the inventory and then not required
     public String drop(String selection) {
@@ -107,7 +57,6 @@ public class Inventory {
                         "Please try again -->");
             }
         }
-        // dropSpecific ignores above while-loop
         // DROP actions
         invList.remove(selection);
         Sounds.playSounds("drop.wav",1000);
@@ -117,15 +66,19 @@ public class Inventory {
 
     // Adding an item actions and sound
     // DOES NOT verify item passed here is a proper inventory item
-    public String addItem(String item){
+    public List<String> addItem(String item){
         invList.add(item);
         System.out.println(item + " has been added to your inventory");
         Sounds.playSounds("pick.wav",1000);
-        return item;
+        return getInvList();
     }
 
     // getters and setters
     public List<String> getInvList() {
         return invList;
+    }
+
+    public boolean hasItem(String item) {
+        return invList.contains(item);
     }
 }

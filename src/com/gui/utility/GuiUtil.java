@@ -1,13 +1,6 @@
 package com.gui.utility;
 
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JComponent;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
+import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import java.awt.Color;
@@ -29,11 +22,11 @@ public class GuiUtil {
      * @return
      */
     public static JScrollPane createScrollPane(Component view) {
-        JScrollPane helpTextAreaScroll;
-        helpTextAreaScroll = new JScrollPane(view, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+
+        JScrollPane scroll = new JScrollPane(view, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
                 JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        helpTextAreaScroll.setAlignmentX(Component.CENTER_ALIGNMENT);
-        return helpTextAreaScroll;
+        scroll.setAlignmentX(Component.CENTER_ALIGNMENT);
+        return scroll;
     }
 
     /**
@@ -58,13 +51,14 @@ public class GuiUtil {
      * @param message
      */
 
-    public static void setMessageSlowly(JTextArea jTextArea, String message) {
-        CharacterDisplay typewriter = new CharacterDisplay(jTextArea, " "+message);
+    public static void setMessageSlowly(JTextArea jTextArea, String message, Timer subsequentTimer) {
+        CharacterDisplay typewriter = new CharacterDisplay(jTextArea, " "+message, subsequentTimer);
         typewriter.startDisplay();
     }
 
     /**
      *
+     * Creates a label with image without text
      * @param imagePath
      * @param width
      * @param height
@@ -75,6 +69,16 @@ public class GuiUtil {
         ImageIcon icon = new ImageIcon(img); //transform it back
         JLabel imageLabel = new JLabel("", icon, JLabel.CENTER);
         return imageLabel;
+    }
+
+    public static JButton getButtonImage(String imagePath, int width, int height) {
+        Image img = transformImage(createImageIcon(imagePath, ""), width, height);
+        ImageIcon icon = new ImageIcon(img); //transform it back
+        JButton imageButton = new JButton();
+        imageButton.setIcon(icon);
+        imageButton.setHorizontalTextPosition(JButton.CENTER);
+        imageButton.setVerticalTextPosition(JButton.BOTTOM);
+        return imageButton;
     }
 
     /**
@@ -106,11 +110,11 @@ public class GuiUtil {
         return newImage;
     }
 
-    public static void displayText(List<String> filesList, JTextArea jTextArea, boolean append, Component mainWindow) {
-        displayText(null, filesList, jTextArea, append, mainWindow);
+    public static void displayText(List<String> filesList, JTextArea jTextArea, boolean append, Component mainWindow, Timer subsequentTimer) {
+        displayText(null, filesList, jTextArea, append, mainWindow, subsequentTimer);
     }
 
-    public static void displayText(List<String> lines, List<String> filesList, JTextArea jTextArea, boolean append, Component mainWindow) {
+    public static void displayText(List<String> lines, List<String> filesList, JTextArea jTextArea, boolean append, Component mainWindow, Timer subsequentTimer) {
         if(!append) {
             //clear previous text
             jTextArea.setText("");
@@ -128,7 +132,7 @@ public class GuiUtil {
                 lines.add("\n\n");
             }
             String text = String.join("\n", lines);
-            GuiUtil.setMessageSlowly(jTextArea, text);
+            GuiUtil.setMessageSlowly(jTextArea, text, subsequentTimer);
         } catch (IOException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(mainWindow, "Error reading intro text.");

@@ -1,23 +1,24 @@
 package com.trapped.utilities;
 
 import com.google.gson.Gson;
+import com.trapped.client.Main;
+import com.trapped.gui.MainWindow;
 import com.trapped.player.Inventory;
 
+import javax.swing.JOptionPane;
 import java.io.IOException;
 import java.io.Reader;
-import java.io.Serializable;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.*;
-
-import static com.trapped.utilities.TextColor.MAGENTA_UNDERLINE;
-import static com.trapped.utilities.TextColor.RESET;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 public class Puzzle{
     private static Gson gson = new Gson();
     public static final Map<String, Map<String, Object>> MAP = furniturePuzzleGenerator();
-    private int max_attempts = 3;
-
     private String puzzleDesc;
     private String puzzleExist;
     private String puzzleVerb;
@@ -37,6 +38,7 @@ public class Puzzle{
 
     private String currentLocation;
     private List<String> currentInventory;
+    int attemptsLeft = 3;
 
     private Puzzle() {
     }
@@ -80,32 +82,34 @@ public class Puzzle{
         if ((inventory.contains(getPuzzleRewardItem().get(0))) || (inventory.contains("key") && loc.equals("safe")) ||
                 (inventory.contains("a piece of paper with number 104") && loc.equals("window")) ||
                 (inventory.contains("a piece of paper with number 104") && loc.equals("safe"))) {
-            System.out.println("The puzzle has been solved. Please feel free to explore other furnitures :)");
+            JOptionPane.showMessageDialog(Main.mainWindow, "The puzzle has been solved. Please feel free to explore other furnitures :)");
 //            new_command();
         } else {
             solveRiddle();
         }
     }
 
+
+
     public void solveRiddle() {
-        System.out.println("A puzzle has been found in " + this.currentLocation + ".");
-        System.out.println(getPuzzleDesc());
+        String message = "A puzzle has been found in " + this.currentLocation + ". " + getPuzzleDesc() +
+                "Would you like to solve this puzzle now?";
+        int choice = JOptionPane.showConfirmDialog(Main.mainWindow, message, "CONFIRM", JOptionPane.YES_NO_OPTION);
 
-        System.out.println("Would you like to solve this puzzle now? Y/N");
-        String solve_ans = Prompts.getStringInput();
+        //String solve_ans = Prompts.getStringInput();
 
-        if ("Y".equalsIgnoreCase(solve_ans)) {
+        if (choice == JOptionPane.YES_OPTION) {
             // riddles puzzle
             Random r = new Random();
             int randomitem = r.nextInt(getConvertedPuzzleFilename().size());
             String randomPuzzle = getConvertedPuzzleFilename().get(randomitem);
             ArrayList<String> randomAnswer = (ArrayList<String>) getMultiplePuzzleAnswer().get(randomitem);
-
-            FileManager.getResource(randomPuzzle);  //print random puzzle.
+            String puzzleText = FileManager.getResource(randomPuzzle);  //print random puzzle.
+            JOptionPane.showMessageDialog(Main.mainWindow, puzzleText, "Puzzle", JOptionPane.OK_OPTION);
             // Scanner scan = new Scanner(System.in);
-            System.out.println("\nYour answer:      (If it's too hard to answer, please enter [easy] to get a easier question.)");
-            String ans = Prompts.getStringInput();
+            //System.out.println("\nYour answer:      (If it's too hard to answer, please enter [easy] to get a easier question.)");
 
+            String ans = JOptionPane.showInputDialog(Main.mainWindow, "Your answer: If it's too hard to answer, please enter [easy] to get a easier question. ");
             if (randomAnswer.contains(ans.toLowerCase())) {
                 successRiddleAttempt();
                 // if user pick easy question
@@ -113,55 +117,58 @@ public class Puzzle{
                 getEasyRiddle();
             }// if answer is wrong
             else {
-                System.out.println("you didn't solve the puzzle. Try again later.");
+                JOptionPane.showMessageDialog(Main.mainWindow, "you didn't solve the puzzle. Try again later.");
             }
-
-        } else if ("N".equalsIgnoreCase(solve_ans)) {
-            return;
-        } else {
-            System.out.println("Sorry I don't understand your command. The puzzle has not been solved. Please come back later.");
         }
     }
 
     public void successRiddleAttempt() {
-        System.out.println(getPuzzleReward());
+        JOptionPane.showMessageDialog(Main.mainWindow, getPuzzleReward());
         Sounds.playSounds(getPuzzleSounds(), 1000);
-        System.out.println("You found " + getPuzzleRewardItem().get(0) + ".");
+        JOptionPane.showMessageDialog(Main.mainWindow,"You found " + getPuzzleRewardItem().get(0) + ".");
         inventory.checkInvLimit();
         inventory.addItem(getPuzzleRewardItem().get(0));
     }
 
     public void getEasyRiddle() {
-        System.out.println(MAP.get(currentLocation).get("easy_question"));
-        String easyInput = Prompts.getStringInput();
+        //System.out.println(MAP.get(currentLocation).get("easy_question"));
+        String easyInput = JOptionPane.showInputDialog(Main.mainWindow, MAP.get(currentLocation).get("easy_question"));
 
         if (easyInput.equals(MAP.get(currentLocation).get("easy_answer"))) {
-            System.out.println(getPuzzleReward());
+            //System.out.println(getPuzzleReward());
+            JOptionPane.showMessageDialog(Main.mainWindow, getPuzzleReward());
             Sounds.playSounds(getPuzzleSounds(), 1000);
-            System.out.println("You found " + this.getPuzzleRewardItem().get(0) + ".");
-            inventory.checkInvLimit();
+            JOptionPane.showMessageDialog(Main.mainWindow, "You found " + this.getPuzzleRewardItem().get(0) + ".");
             inventory.addItem(getPuzzleRewardItem().get(0));
+        } else {
+            JOptionPane.showMessageDialog(Main.mainWindow, "Your answer was wrong!");
         }
     }
 
-    public void useTool(List<String> inventory, String loc) {
-        this.currentInventory = inventory;
-        this.currentLocation = loc;
+    public Map<String, String> useTool(String location, String item) {
+        Map<String, String> result = new HashMap<>();
+        generatePuzzle(location);
 
-        if (inventory.contains(this.getPuzzleRewardItem().get(0))) {
-            System.out.println("The puzzle has been solved. Please feel free to explore other furnitures :)");
-        } else if ((inventory.contains("key") && loc.equals("safe")) ||
-                (inventory.contains("a piece of paper with number 104") && loc.equals("window")) ||
-                (inventory.contains("a piece of paper with number 104") && loc.equals("safe"))) {
-            System.out.println("The puzzle has been solved. Please feel free to explore other furniture :)");
-
-        } else {
-            System.out.println("A puzzle has been found in " + loc + ".");
-            System.out.println(getPuzzleDesc());
-            System.out.println("Would you like to solve this puzzle now? Y/N");
-            String solve_ans = Prompts.getStringInput();
-            checkItemsPuzzle(solve_ans);
+        if (!"use tool".equals(getPuzzleType())) {
+            System.out.println("Sorry cannot use this item here");
+            result.put("error", "Sorry cannot use this item here");
+            return result;
         }
+
+        if(inventory.getInvList().contains(this.getPuzzleRewardItem().get(0))) {
+            result.put("error", "The puzzle has been solved. Please feel free to explore other furnitures :)");
+        }
+        else if (item.equals(getPuzzleItemsNeeded().get(0))) {
+            result.put("puzzleDescription", getPuzzleReward());
+            result.put("prompt", "You've found " + this.getPuzzleRewardItem().get(0));
+            inventory.addItem(getPuzzleRewardItem().get(0));
+//            System.out.println("A puzzle has been found in " + loc + ".");
+//            System.out.println(getPuzzleDesc());
+//            System.out.println("Would you like to solve this puzzle now? Y/N");
+//            String solve_ans = Prompts.getStringInput();
+//            checkItemsPuzzle(solve_ans);
+        }
+        return result;
     }
 
     private void checkItemsPuzzle(String solve_ans) {
@@ -199,33 +206,45 @@ public class Puzzle{
     }
 
 
-    public void finalPuzzle() {
-        System.out.println(getPuzzleDesc());
+//    public void finalPuzzle() {
+//        System.out.println(getPuzzleDesc());
+//
+//        System.out.println("What's the password? You have " + MAGENTA_UNDERLINE + attemptsLeft + RESET + " attempts remaining. If you's like to try later, enter[later]");
+//
+//        String ans = Prompts.getStringInput();
+//
+//        if (ans.trim().equals("later") || ans.trim().equals("")) {
+//            System.out.println("No worries! Try next time!");
+//        } else {
+//            while (attemptsLeft-- > 0) {
+//                if (ans.trim().equals(getPuzzleAnswer())) {
+//                    System.out.println(getPuzzleReward());
+//                    Sounds.playSounds(getPuzzleSounds(), 2000);
+//                    System.out.println("You won the game! Thanks for playing!");
+//                    System.exit(0);
+//
+//                } else if (attemptsLeft == 0) {
+//                    System.out.println("You loss the game! You are Trapped. Please try again later.");
+//                    System.exit(0);
+//                } else {
+//                    System.out.println("Wrong password. Try again next time! " + MAGENTA_UNDERLINE + attemptsLeft + RESET + " attempts remaining");
+//                }
+//            }
+//        }
+//    }
 
-        System.out.println("What's the password? You have " + MAGENTA_UNDERLINE + max_attempts + RESET + " attempts remaining. If you's like to try later, enter[later]");
+    public String finalPuzzle(String attempt){
+        this.currentLocation = "door";
 
-        String ans = Prompts.getStringInput();
-
-        if (ans.trim().equals("later") || ans.trim().equals("")) {
-            System.out.println("No worries! Try next time!");
-        } else {
-            while (max_attempts-- > 0) {
-                if (ans.trim().equals(getPuzzleAnswer())) {
-                    System.out.println(getPuzzleReward());
-                    Sounds.playSounds(getPuzzleSounds(), 2000);
-                    System.out.println("You won the game! Thanks for playing!");
-                    System.exit(0);
-
-                } else if (max_attempts == 0) {
-                    System.out.println("You loss the game! You are Trapped. Please try again later.");
-                    System.exit(0);
-                } else {
-                    System.out.println("Wrong password. Try again next time! " + MAGENTA_UNDERLINE + max_attempts + RESET + " attempts remaining");
-                }
-            }
+        if ("104".equals(attempt)){
+            Sounds.playSounds(getPuzzleSounds(), 2000);
+            return "Success";
+        }
+        else {
+            attemptsLeft--;
+            return attemptsLeft + " left";
         }
     }
-
 
     public String getPuzzleDesc() {
         return puzzleDesc;
