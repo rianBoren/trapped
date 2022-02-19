@@ -456,33 +456,33 @@ public class GamePanel extends GuiPanel {
         gameOver.setBackground(Color.black);
 
         JLabel gameOverImage = GuiUtil.getImageLabel(file, 700, 450);
-        JTextArea textArea = new JTextArea();
-        textArea.setText(reason);
-        textArea.setFont(new Font("Helvetica", Font.BOLD, 20));
-        textArea.setForeground(Color.white);
-        textArea.setBackground(Color.black);
-        textArea.setWrapStyleWord(true);
-        textArea.setEditable(false);
-        textArea.setBounds(0,450, 1200, 350);
-
+//        JTextArea textArea = new JTextArea();
+//        textArea.setText(reason);
+//        textArea.setFont(new Font("Helvetica", Font.BOLD, 20));
+//        textArea.setForeground(Color.white);
+//        textArea.setBackground(Color.black);
+//        textArea.setWrapStyleWord(true);
+//        textArea.setEditable(false);
+//        textArea.setBounds(0,450, 1200, 350);
+        gameOverImage.setText(reason);
         gameOverImage.setForeground(Color.white);
-//        gameOverImage.setIconTextGap(30);
-//        gameOverImage.setFont(new Font("Helvetica", Font.BOLD, 35));
-//        gameOverImage.setVerticalTextPosition(JLabel.BOTTOM);
-//        gameOverImage.setHorizontalTextPosition(JLabel.CENTER);
+        gameOverImage.setIconTextGap(30);
+        gameOverImage.setFont(new Font("Helvetica", Font.BOLD, 15));
+        gameOverImage.setVerticalTextPosition(JLabel.BOTTOM);
+        gameOverImage.setHorizontalTextPosition(JLabel.CENTER);
 
         JButton restart = ExitPanel.createRestartPanel(new Dimension(200, 200));
         JButton exit = ExitPanel.createExitPanel(new Dimension(200, 200));
         restart.setForeground(Color.white);
         exit.setForeground(Color.white);
-//        gameOver.add(new JLabel(" "));
 
+
+        gameOver.add(gameOverImage);
         gameOver.add(restart);
         gameOver.add(exit);
 
 
-        gameOver.add(gameOverImage);
-        gameOver.add(textArea);
+//        gameOver.add(textArea);
         layeredPane.removeAll();
         layeredPane.add(gameOver);
         layeredPane.moveToFront(gameOver);
