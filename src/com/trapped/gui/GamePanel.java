@@ -92,7 +92,7 @@ public class GamePanel extends GuiPanel {
         timer.setBounds(200, 0, 200, 200);
         timer.setForeground(Color.black);
         timer.setVisible(true);
-        startTimer(3);
+        startTimer(400);
         buttonsPanel.add(timer);
     }
 

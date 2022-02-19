@@ -29,7 +29,6 @@ class KeypadPanel extends GuiPanel{
         this.setBackground(new Color(125,115,115));
         this.setBounds(400, 0, BOX_WIDTH, BOX_HEIGHT);
         this.setLayout(null);
-//        this.add(basePanel);
 
         JPanel keypadPanel = new JPanel();
         keypadPanel.setBackground(new Color(0,26,77));
@@ -141,7 +140,6 @@ class KeypadPanel extends GuiPanel{
 
         if ("Success".equals(result)){
             JOptionPane.showMessageDialog(this, "You've unlocked the door!!!");
-//            EndingPanels.createGameWin();
             mainWindow.setMainPanel(new ExitPanel(mainWindow));
         }
 

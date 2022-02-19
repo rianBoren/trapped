@@ -189,23 +189,19 @@
     "left": "drawer",
     "right": "chair",
     "furniture_sounds": "",
-    "puzzle_exist": "Y",
-    "puzzle_type": "use tool",
-    "puzzle_desc": "You can hear some kind of beeping coming from inside the lamp. You need to get inside the lamp somehow to see what the beeping is.",
+    "puzzle_exist": "N",
+    "puzzle_type": "",
+    "puzzle_desc": "",
     "puzzle_hint": "maybe you need a tool",
     "puzzle_reward": "You smash the lamp open and find what appears to be a remote control with a large red button,",
     "puzzle_filename": [],
-    "puzzle_itemsNeeded": [
-      "crowbar"
-    ],
-    "furniture_items": ["knife"],
+    "puzzle_itemsNeeded": [],
+    "furniture_items": [],
     "puzzle_verb": "use",
     "puzzle_answer": "",
     "puzzle_sounds": "glass_breaking.wav",
     "furniture_picture": "lamp.txt",
-    "puzzle_reward_item": [
-      "remote"
-    ],
+    "puzzle_reward_item": [],
     "multiple_puzzle_answer": [],
     "easy_question": "",
     "easy_answer": ""
