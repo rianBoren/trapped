@@ -5,8 +5,10 @@ import com.trapped.player.Inventory;
 import com.trapped.player.Player;
 import com.trapped.utilities.Audio;
 import com.trapped.utilities.Puzzle;
+import com.trapped.utilities.TextColor;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -28,18 +30,20 @@ public class GamePanel extends GuiPanel {
     private static final int ITEM_IMAGE_WIDTH = 50;
     private static final int ITEM_IMAGE_HEIGHT = 50;
 
-    JLayeredPane layeredPane;
-    JPanel imagePanel;
-    JPanel textPanel;
-    JPanel buttonsPanel;
-    JPanel inventoryPanel;
-    JPanel keypadPanel;
-    JTextArea textArea;
-    JPanel instructionsPanel;
-    JLabel imageLabel;
-    JLabel timer;
-    JButton leftB;
-    JButton rightB;
+    private static final int TIME = 480;
+
+    static JLayeredPane layeredPane;
+    private JPanel imagePanel;
+    private JPanel textPanel;
+    private JPanel buttonsPanel;
+    private JPanel inventoryPanel;
+    private JPanel keypadPanel;
+    private JTextArea textArea;
+    private JPanel instructionsPanel;
+    private JLabel imageLabel;
+    private JLabel timer;
+    private JButton leftB;
+    private JButton rightB;
 
     Player player = Player.getInstance();
 
@@ -92,7 +96,8 @@ public class GamePanel extends GuiPanel {
         timer.setBounds(200, 0, 200, 200);
         timer.setForeground(Color.black);
         timer.setVisible(true);
-        startTimer(400);
+        startTimer(TIME);
+      
         buttonsPanel.add(timer);
     }
 
@@ -445,31 +450,39 @@ public class GamePanel extends GuiPanel {
         return p;
     }
 
-    private void createGameOverScreen(String reason, String file) {
+    static void createGameOverScreen(String reason, String file) {
         JPanel gameOver = new JPanel();
         gameOver.setBounds(layeredPane.getBounds());
         gameOver.setBackground(Color.black);
 
         JLabel gameOverImage = GuiUtil.getImageLabel(file, 700, 450);
-        gameOverImage.setText(reason);
+        JTextArea textArea = new JTextArea();
+        textArea.setText(reason);
+        textArea.setFont(new Font("Helvetica", Font.BOLD, 20));
+        textArea.setForeground(Color.white);
+        textArea.setBackground(Color.black);
+        textArea.setWrapStyleWord(true);
+        textArea.setEditable(false);
+        textArea.setBounds(0,450, 1200, 350);
+
         gameOverImage.setForeground(Color.white);
-        gameOverImage.setIconTextGap(30);
-        gameOverImage.setFont(new Font("Helvetica", Font.BOLD, 35));
-        gameOverImage.setVerticalTextPosition(JLabel.BOTTOM);
-        gameOverImage.setHorizontalTextPosition(JLabel.CENTER);
+//        gameOverImage.setIconTextGap(30);
+//        gameOverImage.setFont(new Font("Helvetica", Font.BOLD, 35));
+//        gameOverImage.setVerticalTextPosition(JLabel.BOTTOM);
+//        gameOverImage.setHorizontalTextPosition(JLabel.CENTER);
 
         JButton restart = ExitPanel.createRestartPanel(new Dimension(200, 200));
         JButton exit = ExitPanel.createExitPanel(new Dimension(200, 200));
         restart.setForeground(Color.white);
         exit.setForeground(Color.white);
-        gameOver.add(new JLabel(" "));
+//        gameOver.add(new JLabel(" "));
 
         gameOver.add(restart);
         gameOver.add(exit);
 
-//        gameOver.setLayout(new BoxLayout(gameOver, BoxLayout.Y_AXIS));
 
         gameOver.add(gameOverImage);
+        gameOver.add(textArea);
         layeredPane.removeAll();
         layeredPane.add(gameOver);
         layeredPane.moveToFront(gameOver);

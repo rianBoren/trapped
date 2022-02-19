@@ -7,7 +7,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-class KeypadPanel extends GuiPanel{
+class KeypadPanel extends GuiPanel {
 
     private Puzzle puzzle = Puzzle.getInstance();
     //
@@ -23,15 +23,15 @@ class KeypadPanel extends GuiPanel{
     private static final int BTNS_HEIGHT = 320;
     private static final int DISPLAY_HEIGHT = 60;
 
-    public KeypadPanel(MainWindow mainWindow){
+    public KeypadPanel(MainWindow mainWindow) {
         super(mainWindow);
 
-        this.setBackground(new Color(125,115,115));
+        this.setBackground(new Color(125, 115, 115));
         this.setBounds(400, 0, BOX_WIDTH, BOX_HEIGHT);
         this.setLayout(null);
 
         JPanel keypadPanel = new JPanel();
-        keypadPanel.setBackground(new Color(0,26,77));
+        keypadPanel.setBackground(new Color(0, 26, 77));
         keypadPanel.setBounds(10, 10, KP_WIDTH, KP_HEIGHT);
         keypadPanel.setLayout(null);
         keypadPanel.add(createDisplayPanel());
@@ -40,7 +40,7 @@ class KeypadPanel extends GuiPanel{
         this.add(keypadPanel);
     }
 
-    private JPanel createDisplayPanel(){
+    private JPanel createDisplayPanel() {
         // Make Panel
         JPanel screen = new JPanel();
         screen.setBackground(Color.black);
@@ -48,7 +48,7 @@ class KeypadPanel extends GuiPanel{
 
         // Set and add digit display to panel
         display = new JLabel();
-        display.setText( attemptsLeft + " trys");
+        display.setText(attemptsLeft + " trys");
         display.setForeground(new Color(53, 255, 31));
         display.setFont(new Font("Monospaced", Font.PLAIN, 50));
         //
@@ -57,10 +57,10 @@ class KeypadPanel extends GuiPanel{
         return screen;
     }
 
-    private JPanel createKeypadPanel(){
+    private JPanel createKeypadPanel() {
         JPanel keypad = new JPanel();
         keypad.setBackground(new Color(160, 160, 160));
-        keypad.setLayout(new GridLayout(4,3, 10, 10));
+        keypad.setLayout(new GridLayout(4, 3, 10, 10));
         keypad.setBounds(0, DISPLAY_HEIGHT, KP_WIDTH, BTNS_HEIGHT);
 
         // Make buttons
@@ -114,7 +114,7 @@ class KeypadPanel extends GuiPanel{
     private class KeypadListener implements ActionListener {
         String value = "";
 
-        public KeypadListener(String digit){
+        public KeypadListener(String digit) {
             value = digit;
         }
 
@@ -125,25 +125,29 @@ class KeypadPanel extends GuiPanel{
         }
     }
 
-    private void displayRefresh(){
+    private void displayRefresh() {
         String result = null;
 
-        if (currentDigits.length() < 3){
+        if (currentDigits.length() < 3) {
             display.setText(currentDigits);
-        }
-        else {
+        } else {
             result = puzzle.finalPuzzle(currentDigits);
             display.setText(result);
             currentDigits = "";
             attemptsLeft--;
         }
 
-        if ("Success".equals(result)){
+        if ("Success".equals(result)) {
             JOptionPane.showMessageDialog(this, "You've unlocked the door!!!");
-            mainWindow.setMainPanel(new ExitPanel(mainWindow));
+//            EndingPanels.createGameWin();
+//            mainWindow.setMainPanel(new ExitPanel(mainWindow));
+            GamePanel.createGameOverScreen("The door creaks open and you peek outside...\n" +
+                    "You're greeted by the open air of the outside world, yet now you find yourself outside of what appears to be a cabin in the middle of the woods with a trail headed what you think is [North]...\n" +
+                    "=== Look out for the sequal, \"Trapped: Outside\" ===", "/image/gameover.png");
+
         }
 
-        if (attemptsLeft == 0){
+        if (attemptsLeft == 0) {
             JOptionPane.showMessageDialog(this, "The door keypad shuts off and the door remains closed. You've lost.");
             System.exit(0);
         }
