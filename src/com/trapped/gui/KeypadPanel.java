@@ -29,7 +29,6 @@ class KeypadPanel extends GuiPanel {
         this.setBackground(new Color(125, 115, 115));
         this.setBounds(400, 0, BOX_WIDTH, BOX_HEIGHT);
         this.setLayout(null);
-//        this.add(basePanel);
 
         JPanel keypadPanel = new JPanel();
         keypadPanel.setBackground(new Color(0, 26, 77));
@@ -145,6 +144,7 @@ class KeypadPanel extends GuiPanel {
             GamePanel.createGameOverScreen("The door creaks open and you peek outside...\n" +
                     "You're greeted by the open air of the outside world, yet now you find yourself outside of what appears to be a cabin in the middle of the woods with a trail headed what you think is [North]...\n" +
                     "=== Look out for the sequal, \"Trapped: Outside\" ===", "/image/gameover.png");
+
         }
 
         if (attemptsLeft == 0) {
