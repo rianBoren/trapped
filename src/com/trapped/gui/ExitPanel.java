@@ -122,23 +122,4 @@ public class ExitPanel extends GuiPanel {
         });
         return restartButton;
     }
-
-    private JButton createExitPanel(Dimension dimension) {
-        JButton exitButton = new JButton(" EXIT ");
-        exitButton.setSize(dimension);
-        exitButton.setFont(MainWindow.btnFont);
-        exitButton.setOpaque(false);
-        exitButton.setForeground(Color.BLACK);
-        exitButton.setBackground(Color.CYAN);
-
-        //adding exit event listener
-        exitButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(mainWindow, "Thank you for playing!!! Good BYe!!!");
-                System.exit(0);
-            }
-        });
-        return exitButton;
-    }
 }

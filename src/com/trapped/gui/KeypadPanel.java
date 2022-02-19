@@ -141,9 +141,8 @@ class KeypadPanel extends GuiPanel {
             JOptionPane.showMessageDialog(this, "You've unlocked the door!!!");
 //            EndingPanels.createGameWin();
 //            mainWindow.setMainPanel(new ExitPanel(mainWindow));
-            GamePanel.createGameOverScreen("The door creaks open and you peek outside...\n" +
-                    "You're greeted by the open air of the outside world, yet now you find yourself outside of what appears to be a cabin in the middle of the woods with a trail headed what you think is [North]...\n" +
-                    "=== Look out for the sequal, \"Trapped: Outside\" ===", "/image/gameover.png");
+            GamePanel.createGameOverScreen("The door creaks open and you peek outside..." +
+                    "   === Look out for the sequal, \"Trapped: Outside\" ===", "/image/gameover.png");
 
         }
 
