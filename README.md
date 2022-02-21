@@ -16,7 +16,15 @@ The game takes place in a mysterious room. The player has to explore the room, l
 * 2.3.1
 
 ## Contributors
-* Justin Hammel, Sushma Pakhreen, Zoe Ji
+### Version 1 Team:
+* [Justin Hammel](https://github.com/thirdeye18),
+* [Sushma Pakhreen](https://github.com/spakhre),
+* [Zoe Ji](https://github.com/zoeji569)
+
+### Version 2 Team:
+* [Mark Duenas](https://github.com/MarkDuenas)
+* [Subash KC](https://github.com/subash-kc)
+* [Rian Boren](https://github.com/rianBoren)
 
 ## Quickstart
 * Download the latest release
