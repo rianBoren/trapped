@@ -2,7 +2,6 @@ package com.trapped.utilities;
 
 import com.google.gson.Gson;
 import com.trapped.client.Main;
-import com.trapped.gui.MainWindow;
 import com.trapped.player.Inventory;
 
 import javax.swing.JOptionPane;
@@ -15,6 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import static com.trapped.player.Player.location;
 
 public class Puzzle{
     private static Gson gson = new Gson();
@@ -40,6 +40,10 @@ public class Puzzle{
     private List<String> currentInventory;
     int attemptsLeft = 3;
 
+    private static Random random = new Random();
+
+    private static String randomPasscode;
+
     private Puzzle() {
     }
 
@@ -56,6 +60,10 @@ public class Puzzle{
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static void clearRandomPasscode() {
+        randomPasscode = null;
     }
 
     public Map<String, Object> generatePuzzle(String loc) {
@@ -208,14 +216,32 @@ public class Puzzle{
     public String finalPuzzle(String attempt){
         this.currentLocation = "door";
 
-        if ("104".equals(attempt)){
-            Sounds.playSounds(getPuzzleSounds(), 2000);
+        if ((randomPasscode != null) && randomPasscode.equals(attempt)){
+            //Sounds.playSounds(getPuzzleSounds(), 2000);
+            String puzzleSoundsFile = (String) MAP.get(location).get("puzzle_sounds");
+            Sounds.playSounds(puzzleSoundsFile, 2000);
             return "Success";
         }
         else {
             attemptsLeft--;
             return getAttemptsLeft() + " left";
         }
+    }
+
+    public static String generateRandomPasscode(int length) {
+        if(randomPasscode != null) {
+            //return existing passcode
+            return randomPasscode;
+        }
+        // generate as the passcode is null
+        StringBuilder sb = new StringBuilder();
+        for(int i = 0; i < length; i++) {
+            //returns a random digit in the range  0 to 9;
+            int digit = random.nextInt(10);
+            sb.append(digit);
+        }
+        randomPasscode = sb.toString();
+        return randomPasscode;
     }
 
     public String getPuzzleDesc() {

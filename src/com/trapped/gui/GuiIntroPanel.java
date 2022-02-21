@@ -21,7 +21,7 @@ import java.util.Arrays;
 public class GuiIntroPanel extends GuiPanel {
 
     //Rows and cols of text area to match the size of the map
-    private static final int MAIN_PANEL_TEXT_AREA_ROWS = 20;
+    private static final int MAIN_PANEL_TEXT_AREA_ROWS = 30;
     private static final int MAIN_PANEL_TEXT_AREA_COLS = 90;
     private static JTextArea displayTextArea;
     private JButton continueButton;

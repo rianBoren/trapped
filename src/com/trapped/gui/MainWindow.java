@@ -12,7 +12,6 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Font;
 
-
 public class MainWindow extends JFrame {
 
     // Font and styling
@@ -95,6 +94,9 @@ public class MainWindow extends JFrame {
         //clear the inventory
         Inventory inventory = player.getInventory();
         inventory.getInvList().clear();
+
+        //clear passcode
+        Puzzle.clearRandomPasscode();
 
         //Reset the escape attempts
         Puzzle puzzle = Puzzle.getInstance();

@@ -14,7 +14,6 @@ public class Audio {
 
     public static final int DEFAULT_VOLUME_LEVEL = 5;
 
-
     private Clip clip;
     private FloatControl gainControl;
     private Scanner scanner = new Scanner(System.in);
