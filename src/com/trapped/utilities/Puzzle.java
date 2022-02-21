@@ -205,34 +205,6 @@ public class Puzzle{
         }
     }
 
-
-//    public void finalPuzzle() {
-//        System.out.println(getPuzzleDesc());
-//
-//        System.out.println("What's the password? You have " + MAGENTA_UNDERLINE + attemptsLeft + RESET + " attempts remaining. If you's like to try later, enter[later]");
-//
-//        String ans = Prompts.getStringInput();
-//
-//        if (ans.trim().equals("later") || ans.trim().equals("")) {
-//            System.out.println("No worries! Try next time!");
-//        } else {
-//            while (attemptsLeft-- > 0) {
-//                if (ans.trim().equals(getPuzzleAnswer())) {
-//                    System.out.println(getPuzzleReward());
-//                    Sounds.playSounds(getPuzzleSounds(), 2000);
-//                    System.out.println("You won the game! Thanks for playing!");
-//                    System.exit(0);
-//
-//                } else if (attemptsLeft == 0) {
-//                    System.out.println("You loss the game! You are Trapped. Please try again later.");
-//                    System.exit(0);
-//                } else {
-//                    System.out.println("Wrong password. Try again next time! " + MAGENTA_UNDERLINE + attemptsLeft + RESET + " attempts remaining");
-//                }
-//            }
-//        }
-//    }
-
     public String finalPuzzle(String attempt){
         this.currentLocation = "door";
 
@@ -242,7 +214,7 @@ public class Puzzle{
         }
         else {
             attemptsLeft--;
-            return attemptsLeft + " left";
+            return getAttemptsLeft() + " left";
         }
     }
 
@@ -350,4 +322,11 @@ public class Puzzle{
         this.puzzleSounds = puzzleSounds;
     }
 
+    public int getAttemptsLeft() {
+        return attemptsLeft;
+    }
+
+    public void setAttemptsLeft(int attemptsLeft) {
+        this.attemptsLeft = attemptsLeft;
+    }
 }
