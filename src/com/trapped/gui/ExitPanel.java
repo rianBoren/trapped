@@ -76,7 +76,7 @@ public class ExitPanel extends GuiPanel {
 
         exitButton.setSize(dimension);
         exitButton.setFont(MainWindow.btnFont);
-        exitButton.setOpaque(false);
+//        exitButton.setOpaque(false);
         exitButton.setForeground(Color.BLACK);
         exitButton.setBackground(Color.RED);
 
@@ -108,7 +108,7 @@ public class ExitPanel extends GuiPanel {
 
         restartButton.setSize(dimension);
         restartButton.setFont(MainWindow.btnFont);
-        restartButton.setOpaque(false);
+//        restartButton.setOpaque(false);
         restartButton.setForeground(Color.BLACK);
         restartButton.setBackground(Color.RED);
 
