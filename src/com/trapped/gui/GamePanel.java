@@ -33,7 +33,7 @@ public class GamePanel extends GuiPanel {
 
     public static final Font BUTTON_FONT = new Font("Arial", Font.BOLD, 20); // ORIGINAL
     private static final Color BTN_CLR = new Color(145,66,13);
-    private static final Color BTN_FONT_CLR = new Color(255,242,209);
+    private static final Color BTN_FONT_CLR = Color.WHITE;
     private static final Color PANELING_CLR = new Color(78, 72, 68);
 
     private static final int IMAGE_WIDTH = 800;
