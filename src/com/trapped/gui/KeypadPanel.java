@@ -12,8 +12,9 @@ class KeypadPanel extends GuiPanel {
     private Puzzle puzzle = Puzzle.getInstance();
     //
     private String currentDigits = "";
-    private int attemptsLeft = 3;
+    private String result = "";
     private JLabel display;
+    private static final String trys = "3 trys";
     public static final Font BTN_FONT = new Font("SansSerif", Font.BOLD, 10); // ORIGINAL
     //
     private static final int BOX_WIDTH = 360;
@@ -48,7 +49,7 @@ class KeypadPanel extends GuiPanel {
 
         // Set and add digit display to panel
         display = new JLabel();
-        display.setText(attemptsLeft + " trys");
+        display.setText(trys);
         display.setForeground(new Color(53, 255, 31));
         display.setFont(new Font("Monospaced", Font.PLAIN, 50));
         //
@@ -74,6 +75,7 @@ class KeypadPanel extends GuiPanel {
         JButton eight_btn = new JButton("8");
         JButton nine_btn = new JButton("9");
         JButton zero_btn = new JButton("0");
+        JButton back_btn = new JButton("<<");
         // btn font
         one_btn.setFont(BTN_FONT);
         two_btn.setFont(BTN_FONT);
@@ -85,6 +87,7 @@ class KeypadPanel extends GuiPanel {
         eight_btn.setFont(BTN_FONT);
         nine_btn.setFont(BTN_FONT);
         zero_btn.setFont(BTN_FONT);
+        back_btn.setFont(BTN_FONT);
         // Add action listeners
         one_btn.addActionListener(new KeypadListener("1"));
         two_btn.addActionListener(new KeypadListener("2"));
@@ -96,6 +99,16 @@ class KeypadPanel extends GuiPanel {
         eight_btn.addActionListener(new KeypadListener("8"));
         nine_btn.addActionListener(new KeypadListener("9"));
         zero_btn.addActionListener(new KeypadListener("0"));
+        back_btn.addActionListener(action -> {
+            if(currentDigits.length() > 0){
+                StringBuilder removing = new StringBuilder(currentDigits);
+                removing.deleteCharAt(currentDigits.length() - 1);
+                currentDigits = removing.toString();
+                System.out.println("variable" + currentDigits);
+                System.out.println("length: " +currentDigits.length());
+            }
+            displayRefresh();
+        });
         // Add btns to panel
         keypad.add(one_btn);
         keypad.add(two_btn);
@@ -107,6 +120,7 @@ class KeypadPanel extends GuiPanel {
         keypad.add(eight_btn);
         keypad.add(nine_btn);
         keypad.add(zero_btn);
+        keypad.add(back_btn);
 
         return keypad;
     }
@@ -126,29 +140,31 @@ class KeypadPanel extends GuiPanel {
     }
 
     private void displayRefresh() {
-        String result = null;
-
+        if (currentDigits.length() == 0){
+            if (result.length() == 0){
+                display.setText(trys);
+            } else {
+                display.setText(result);
+            }
+        }
         if (currentDigits.length() < 3) {
             display.setText(currentDigits);
         } else {
             result = puzzle.finalPuzzle(currentDigits);
             display.setText(result);
             currentDigits = "";
-            attemptsLeft--;
         }
 
         if ("Success".equals(result)) {
             JOptionPane.showMessageDialog(this, "You've unlocked the door!!!");
-//            EndingPanels.createGameWin();
-//            mainWindow.setMainPanel(new ExitPanel(mainWindow));
             GamePanel.createGameOverScreen("The door creaks open and you peek outside..." +
                     "   === Look out for the sequal, \"Trapped: Outside\" ===", "/image/gameover.png");
-
         }
 
-        if (attemptsLeft == 0) {
+//        if (attemptsLeft == 0) {
+        if ("0 left".equals(result)) {
             JOptionPane.showMessageDialog(this, "The door keypad shuts off and the door remains closed. You've lost.");
-            System.exit(0);
+            GamePanel.createGameOverScreen("The door is locked forever... Try again?", "/image/gameover.png");
         }
     }
 }

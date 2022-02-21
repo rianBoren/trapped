@@ -98,6 +98,10 @@ public class MainWindow extends JFrame {
         //clear passcode
         Puzzle.clearRandomPasscode();
 
+        //Reset the escape attempts
+        Puzzle puzzle = Puzzle.getInstance();
+        puzzle.setAttemptsLeft(3);
+
         createGameScreen();
     }
 }
