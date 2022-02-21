@@ -3,6 +3,7 @@ package com.trapped.gui;
 import com.trapped.player.Inventory;
 import com.trapped.player.Player;
 import com.trapped.utilities.Audio;
+import com.trapped.utilities.Puzzle;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -10,7 +11,6 @@ import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Font;
-
 
 public class MainWindow extends JFrame {
 
@@ -94,6 +94,9 @@ public class MainWindow extends JFrame {
         //clear the inventory
         Inventory inventory = player.getInventory();
         inventory.getInvList().clear();
+
+        //clear passcode
+        Puzzle.clearRandomPasscode();
 
         createGameScreen();
     }
