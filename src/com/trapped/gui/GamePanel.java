@@ -33,7 +33,7 @@ public class GamePanel extends GuiPanel {
 
     public static final Font BUTTON_FONT = new Font("Arial", Font.BOLD, 20); // ORIGINAL
     private static final Color BTN_CLR = new Color(145,66,13);
-    private static final Color BTN_FONT_CLR = Color.WHITE;
+    private static final Color BTN_FONT_CLR = Color.BLACK;
     private static final Color PANELING_CLR = new Color(78, 72, 68);
 
     private static final int IMAGE_WIDTH = 800;
@@ -515,9 +515,11 @@ public class GamePanel extends GuiPanel {
 
         JButton restart = ExitPanel.createRestartPanel(new Dimension(200, 200));
         JButton exit = ExitPanel.createExitPanel(new Dimension(200, 200));
-        restart.setForeground(Color.white);
+        restart.setForeground(Color.black);
+        restart.setBackground(Color.white);
         restart.setFocusPainted(false);
-        exit.setForeground(Color.white);
+        exit.setForeground(Color.black);
+        exit.setBackground(Color.white);
 
 
         gameOver.add(gameOverImage);
