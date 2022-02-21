@@ -5,13 +5,25 @@ import com.trapped.player.Inventory;
 import com.trapped.player.Player;
 import com.trapped.utilities.Audio;
 import com.trapped.utilities.Puzzle;
-import com.trapped.utilities.TextColor;
 
-import javax.swing.*;
-import javax.swing.border.Border;
-import java.awt.*;
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URL;
 import java.util.List;
 import java.util.Map;
 import java.util.Timer;
@@ -47,7 +59,6 @@ public class GamePanel extends GuiPanel {
 
     Player player = Player.getInstance();
 
-    private JSlider volumeSlider;
 
     /**
      * Constructor.
@@ -271,12 +282,6 @@ public class GamePanel extends GuiPanel {
             }
         });
 
-//        helpB.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                //pending
-//            }
-//        });
         quitB.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -392,7 +397,12 @@ public class GamePanel extends GuiPanel {
         //Add image labels
         for (String inventoryItem : invList) {
             itemsPanel.add(new JLabel("      "));
-            JPanel p = createItemImagePanel(inventoryItem);
+            JPanel p;
+            if(inventoryItem.equals("a piece of paper with number 104")) {
+                p = createRandomPuzzlePanel("paper"); //must match file name of 'paper.jpg'
+            } else {
+                p = createItemImagePanel(inventoryItem);
+            }
             itemsPanel.add(p);
         }
 
@@ -434,7 +444,6 @@ public class GamePanel extends GuiPanel {
         p.setLayout(new BoxLayout(p, BoxLayout.Y_AXIS));
         JButton btn = createButtonImage(inventoryItem);
 
-
         btn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -448,6 +457,39 @@ public class GamePanel extends GuiPanel {
         p.add(btn);
         p.add(new JLabel("    "));
         return p;
+    }
+
+
+    private JPanel createRandomPuzzlePanel(String inventoryItem) {
+
+        JPanel backgroundPanel = new JPanel();
+        backgroundPanel.setSize(new Dimension(75, 75));
+
+        //background label design
+        JLabel backgroundImageLabel = new JLabel();
+        backgroundImageLabel.setSize(backgroundPanel.getWidth(), backgroundPanel.getHeight());
+
+        //setting background image
+        String filePath = "/image/items/" + inventoryItem + ".jpg";
+        URL imageURL = BackgroundImageLabelPanel.class.getResource(filePath);
+        ImageIcon backgroundImage = new ImageIcon(new ImageIcon(imageURL).getImage()
+                .getScaledInstance(backgroundImageLabel.getWidth(), backgroundImageLabel.getHeight(), Image.SCALE_SMOOTH));
+        backgroundImageLabel.setIcon(backgroundImage);
+        backgroundPanel.add(backgroundImageLabel);
+
+        backgroundPanel.setBackground(Color.WHITE);
+        backgroundPanel.setLayout(new BoxLayout(backgroundPanel, BoxLayout.Y_AXIS));
+
+        String passcode = Puzzle.generateRandomPasscode(3);
+
+        backgroundImageLabel.removeAll();
+        backgroundImageLabel.setLayout(new GridBagLayout());
+        backgroundImageLabel.add(new JLabel(passcode));
+
+        backgroundPanel.add(new JLabel("   "));
+        backgroundPanel.add(new JLabel("Paper with Passcode"));
+
+        return backgroundPanel;
     }
 
     static void createGameOverScreen(String reason, String file) {
@@ -474,6 +516,7 @@ public class GamePanel extends GuiPanel {
         JButton restart = ExitPanel.createRestartPanel(new Dimension(200, 200));
         JButton exit = ExitPanel.createExitPanel(new Dimension(200, 200));
         restart.setForeground(Color.white);
+        restart.setFocusPainted(false);
         exit.setForeground(Color.white);
 
 
