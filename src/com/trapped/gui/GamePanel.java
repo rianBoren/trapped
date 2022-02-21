@@ -310,7 +310,7 @@ public class GamePanel extends GuiPanel {
 
         // create and add instructions label
         JTextArea instructions = new JTextArea("There's no going back from here\n" +
-                "Once you input a digit \nit's PERMANENT\n\nOnly 3 attempts to escape\n" +
+                "Use the \"<<\" button to delete\n\nOnly 3 attempts to escape\n" +
                 "Input three digits if you dare\n\n***You notice some strange \nscrawling below the instructions \nthat you can't quite make out***");
         instructions.setPreferredSize(new Dimension(440,370));
         instructions.setBackground(Color.black);
